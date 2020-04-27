@@ -23,11 +23,11 @@ If everything went correctly, the firmware would be in the `release` folder.
 
 ### Flashing
 
-TODO
+The easiest way is to use the [Teensy Loader](https://www.pjrc.com/teensy/loader.html). Simply follow the instructions they provide.
 
 ### TODOs
 
 * [ ] Stop attempts to recreate `qmk_firmware/keyboards/ergodox_ez/keymaps/zloesabo` on every build
 * [ ] Add missing keys to QWERTY layout
 * [ ] Tap dance for the functional keys
-* [ ] Flashing instructions
+* [X] Flashing instructions
