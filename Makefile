@@ -1,9 +1,10 @@
 currentPath = $(shell pwd)
 qmkPath = qmk_firmware
+keymap = zloesabo
 firmwareBuildPath = $(qmkPath)/keyboards/ergodox_ez/keymaps/zloesabo
-releaseFile = ergodox_ez_zloesabo.hex
+releaseFile = ergodox_ez_$(keymap).hex
 releaseTargetPath = release
-makeTarget = ergodox_ez:zloesabo
+makeTarget = ergodox_ez:$(keymap)
 firmwareFiles = config.h keymap.c rules.mk
 firmwareTargetFiles = $(addprefix $(firmwareBuildPath)/, $(firmwareFiles))
 

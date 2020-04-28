@@ -7,8 +7,8 @@
 
 enum keyboard_layouts {
   NORMAN,
-  MOUSE,
   QWERTY,
+  MOUSE
 };
 
 enum custom_keycodes {
@@ -21,28 +21,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap 0: Norman layout
   *
   * ,--------------------------------------------------.           ,--------------------------------------------------.
-  * | Esc    |  1!  |  2@  |  3#  |  4$  |  5%  |  <-  |           |  ->  |   6  |   7  |   8  |   9  |   0  |    -   |
+  * | Esc    |  1!  |  2@  |  3#  |  4$  |  5%  |  <-  |           |  ->  |   6, |   7. |   8; |   9( |   0) |    -_  |
   * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
   * | Tab    |   Q  |   W  |   D  |   F  |   K  | L2   |           |  L3  |   J  |   U  |   R  |   L  |   ;  |  BkSp  |
   * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-  * | BkSp   |   A  |   S  |   E  |   T  |   G  |------|           |------|   Y  |   N  |   I  |   O  |   H  |  Enter |
+  * | BkSp   |   A  |   S  |   E  |   T  |   G  |------|           |------|   Y  |   N  |   I  |   O  |   H  |' / Cmd |
   * |--------+------+------+------+------+------| \|   |           |  =   |------+------+------+------+------+--------|
   * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
   * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  *   |  L2  | `    |  Up  | Down | LCtr |                                       | Left | Right| LGui | LAlt |  L2  |
+  *   |  L2  | `    |  Up  | Down | LCtr |                                       | Left | Right|   [  |   ]  |  \|  |
   *   `----------------------------------'                                       `----------------------------------'
   *                                        ,-------------.       ,---------------.
   *                                        | Ins  | Home |       | PgUp |  RCmd  |
   *                                 ,------|------|------|       |------+--------+------.
   *                                 |      |      | End  |       | PgDn |        |      |
-  *                                 | Space| LAlt |------|       |------| Gr?    | Space|
+  *                                 | Space| LAlt |------|       |------| Enter  | Space|
   *                                 |      |      | LCmd |       | RCmd |        |      |
   *                                 `--------------------'       `----------------------'
   */
   [NORMAN] = LAYOUT_ergodox(
     // left hand
     KC_ESC,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_LEFT,        
-    KC_TAB,         KC_Q,           KC_W,           KC_D,           KC_F,           KC_K,           TG(MOUSE),
+    KC_TAB,         KC_Q,           KC_W,           KC_D,           KC_F,           KC_K,           TG(QWERTY),
     KC_BSPC,        KC_A,           KC_S,           KC_E,           KC_T,           KC_G,
     KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_BSLS,
     OSL(MOUSE),     KC_GRV,         KC_UP,          KC_DOWN,        KC_LCTL,
@@ -55,14 +55,62 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // right hand
     KC_RGHT,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
     TG(QWERTY),     KC_J,           KC_U,           KC_R,           KC_L,           KC_SCLN,        KC_DEL,
-                    KC_Y,           KC_N,           KC_I,           KC_O,           KC_H,           KC_ENT,
+                    KC_Y,           KC_N,           KC_I,           KC_O,           KC_H,           KC_QUOT,
     KC_EQL,         KC_P,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-    KC_RCTL,        KC_LBRC,        KC_RBRC,        KC_QUOT,        OSL(MOUSE),
+    KC_LEFT,        KC_RGHT,        KC_LBRC,        KC_RBRC,        KC_BSLS,
 
     //Right thumb block
     KC_PGUP,        KC_RCMD,
     KC_PGDN,
-    KC_RCMD,        KC_ALGR,        LSFT_T(KC_SPC)
+    KC_RCMD,        KC_ENT,        RSFT_T(KC_SPC)
+  ),
+
+  /* Keymap 1: QWERTY layer
+  * NOTE: currently there is only symbols on this layer, everything else uses bindings of the previous layer------------
+  *
+  * ,--------------------------------------------------.           ,--------------------------------------------------.
+  * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+  * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
+  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+  * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|' / Cmd |
+  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
+  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+  *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+  *   `----------------------------------'                                       `----------------------------------'
+  *                                        ,-------------.       ,-------------.
+  *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
+  *                                 ,------|------|------|       |------+--------+------.
+  *                                 |      |      | Home |       | PgUp |        |      |
+  *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
+  *                                 |      |ace   | End  |       | PgDn |        |      |
+  *                                 `--------------------'       `----------------------'
+  */
+  [QWERTY] = LAYOUT_ergodox(
+    // left hand
+    _______,                 _______,           _______,       _______,        _______,         _______,             _______,
+    _______,                 KC_Q,              KC_W,          KC_E,           KC_R,            KC_T,                _______,
+    _______,                 KC_A,              KC_S,          KC_D,           KC_F,            KC_G,
+    _______,                 CTL_T(KC_Z),       KC_X,          KC_C,           KC_V,            KC_B,                _______,
+    LT(MOUSE,KC_GRV),        _______,           _______,       _______,        _______,       
+
+    //left thumb block
+                                                                                                    _______, _______,
+                                                                                                             _______,
+                                                                                           _______, _______, _______,
+
+    // right hand
+    _______,                 _______,           _______,        _______,       _______,         _______,             _______,
+    _______,                 KC_Y,              KC_U,           KC_I,          KC_O,            KC_P,                _______,
+                             KC_H,              KC_J,           KC_K,          KC_L,            KC_SCLN,             _______,
+    _______,                 KC_N,              KC_M,           KC_COMM,       KC_DOT,          CTL_T(KC_SLSH),      _______,
+                                                _______,        _______,       _______,         _______,             _______,
+
+    //right thumb block
+    _______, _______,
+    _______,
+    _______, _______, _______
   ),
 
 
@@ -86,54 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PGDN,        
         KC_ALGR,        KC_RCTL,        KC_RSFT
     ),
-
-
-  /* Keymap 2: QWERTY layer
-  *
-  * ,--------------------------------------------------.           ,--------------------------------------------------.
-  * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
-  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-  * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
-  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-  * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|' / Cmd |
-  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
-  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
-  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
-  *   `----------------------------------'                                       `----------------------------------'
-  *                                        ,-------------.       ,-------------.
-  *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
-  *                                 ,------|------|------|       |------+--------+------.
-  *                                 |      |      | Home |       | PgUp |        |      |
-  *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
-  *                                 |      |ace   | End  |       | PgDn |        |      |
-  *                                 `--------------------'       `----------------------'
-  */
-  [QWERTY] = LAYOUT_ergodox(
-    // left hand
-    KC_EQL,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,
-    KC_DEL,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(NORMAN),
-    KC_BSPC,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
-    KC_LSFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),
-    LT(NORMAN,KC_GRV), KC_QUOT,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,
-
-    //left thumb block
-      ALT_T(KC_APP), KC_LGUI,
-                     KC_HOME,
-    KC_SPC, KC_BSPC, KC_END,
-
-    // right hand
-    KC_RGHT,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           KC_MINS,
-    KC_TRNS,      KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           KC_BSLS,
-    KC_H,         KC_J,    KC_K,    KC_L,    KC_SCLN,           KC_ENT,
-    MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,            CTL_T(KC_SLSH), KC_RSFT,
-    KC_UP,        KC_DOWN, KC_LBRC, KC_RBRC, TT(NORMAN),
-
-    //right thumb block
-    KC_LALT, CTL_T(KC_ESC),
-    KC_PGUP,
-    KC_PGDN, KC_TAB, KC_ENT
-  ),
 };
 
 void eeconfig_init_user(void) {
